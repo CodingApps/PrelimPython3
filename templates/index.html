@@ -4,9 +4,13 @@
     </head>
     
     <body>
-        <h1>Weather forecast for Albuquerque, NM</h1>
+        <form>
+            Hi BigCheese, choose city for forecast : <input type="text" name="searchcity"> <input type="Submit" value="Submit">
+        </form>
+        
+        <h1>Weather forecast for {{location}}</h1>
         {% for day in forecast_list %}
-        <p>{{day[0]}} &ndash; {{day[2]}} &ndash; {{day[3]}} &ndash; {{day[4]}} </p>
+        <p>{{day[0]}} &ndash; {{day[1]}} &ndash; {{day[2]}} &ndash; {{day[3]}} </p>
         {% endfor %}
         
         <br><br>
