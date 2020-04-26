@@ -1,6 +1,8 @@
 from flask import Flask
 from flask import render_template
+from flask import make_response
 from flask import request
+import datetime
 import os
 import json
 import time
@@ -17,12 +19,14 @@ def get_weather(city):
 def index():
     searchcity = request.args.get("searchcity")
     if not searchcity:
-        searchcity = "Philadelphia"
+        searchcity = request.cookies.get("last_city")
+    if not searchcity:
+        searchcity = "philadelphia"
     data = json.loads(get_weather(searchcity))
     try:
         city = data['city']['name']
     except KeyError:
-        return render_template("invalid_city.html", user_input=searchcity)
+        return render_template("templates/invalid_city.html", user_input=searchcity)
  #   city = data['city']['name']
     location=searchcity
     country = data['city']['country']
@@ -33,7 +37,10 @@ def index():
         maxi = d.get("main").get("temp_max")
         description = d.get("weather")[0].get("description")
         forecast_list.append((day,mini,maxi,description))
-    return render_template("index.html", forecast_list=forecast_list, location=location)
+    response = make_response(render_template("index.hml", forecast_list=forecast_list, city=city, country=country))
+    if request.args.get("remember"):
+        response.set_cookie("last_city", "{}.{}".format(city,country), expires=datetime.datetime.today() + datetime.timedelta(days=365))
+    return response
     
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
