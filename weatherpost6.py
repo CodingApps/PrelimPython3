@@ -7,17 +7,15 @@ import urllib.request
 
 app = Flask(__name__)
 
-def get_weather(city):
+def get_weather():
     url = "http://api.openweathermap.org/data/2.5/forecast?id=5454711&units=imperial&appid=d1bb542ef3f0d208e77e3d35bd6f6e2a"
     response = urllib.request.urlopen(url).read()
     return response
 
 @app.route("/")
 @app.route("/<searchcity>")
-def index(searchcity="Philadelphia"):
-    data = json.loads(get_weather(searchcity))
-    city = data['city']['name']
-    country = data['city']['country']
+def index():
+    data = json.loads(get_weather())
     forecast_list = []
     for d in data.get("list"):
         day = time.strftime('%d %B', time.localtime(d.get('dt')))
