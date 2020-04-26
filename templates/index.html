@@ -1,0 +1,27 @@
+<html>
+<head>
+    <title>My Weather App</title>
+    </head>
+    
+    <body>
+        <h1>Weather forecast for Albuquerque, NM</h1>
+        {% for day in forecast_list %}
+        <p>{{day[0]}} &ndash; {{day[2]}} &ndash; {{day[3]}} &ndash; {{day[4]}} </p>
+        {% endfor %}
+        
+        <br><br>
+        
+        <table border="1">
+        <tr>
+            <th>Date</th><th>Min</th><th>Max</th><th>Description</th>
+            {% for day in forecast_list %}
+                <tr>
+                    <td>{{day[0]}}</td>
+                    <td>{{day[1]}}</td>
+                    <td>{{day[2]}}</td>
+                    <td>{{day[3]}}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </body>
+</html>
