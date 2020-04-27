@@ -8,7 +8,7 @@ import urllib.request
 app = Flask(__name__)
 
 def get_weather():
-    url = "http://api.openweathermap.org/data/2.5/forecast?id=5454711&units=imperial&appid=d1bb542ef3f0d208e77e3d35bd6f6e2a"
+    url = "http://api.openweathermap.org/data/2.5/forecast?id=5454711&units=imperial&appid=[API Key]"
     response = urllib.request.urlopen(url).read()
     return response
 
